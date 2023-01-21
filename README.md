@@ -22,9 +22,9 @@
 
 ![](/META-INF/qiwipay222.png)
 
-![](https://img.shields.io/github/tag/pukpukov/qiwipay?style=for-the-badge&logo=appveyor)
+![](https://img.shields.io/github/tag/ancap-kun/qiwipay?style=for-the-badge&logo=appveyor)
 
-![](https://img.shields.io/github/issues/pukpukov/qiwipay?style=for-the-badge&logo=appveyor) ![](https://img.shields.io/tokei/lines/github/pukpukov/qiwipay?style=for-the-badge&logo=appveyor)
+![](https://img.shields.io/github/issues/ancap-kun/qiwipay?style=for-the-badge&logo=appveyor) ![](https://img.shields.io/tokei/lines/github/pukpukov/qiwipay?style=for-the-badge&logo=appveyor)
 
 ## Настройка плагина
 Чтобы плагин работал, необходимо ввести секретный ключ от p2p qiwi api в QiwiConfiguration.yml. Получить его можно тут: https://p2p.qiwi.com/.
