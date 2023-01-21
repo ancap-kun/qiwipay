@@ -1,7 +1,0 @@
-name: QiwiPay
-version: 1.0
-main: AncapPay.main
-authors: [PukPukov, moskovroma, Riku]
-commands:
-  donate:
-    aliases: [dn]
