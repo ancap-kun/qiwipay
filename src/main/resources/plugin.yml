@@ -1,0 +1,11 @@
+name: QiwiPay
+version: '${project.version}'
+main: ru.ancap.pay.plugin.plugin.AncapPay
+authors: [PukPukov, moskovroma, Riku]
+
+depend: [Artifex]
+
+commands:
+  donate:
+  promo-code:
+  ancap-pay:

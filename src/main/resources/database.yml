@@ -1,0 +1,29 @@
+# Это поле необходимо будет в случае, если я захочу изменить структуру хранения данных. Не трогайте!
+database-version: 1
+
+transactions:
+  total-pay: 100
+  list:
+    0:
+      time: 167666656
+      payed: 100
+      player: PukPukov
+      promo-used: NEWYEAR2023
+      
+players: 
+  PukPukov:
+    donates: [0]
+
+promo-codes:
+  NEWYEAR2023:
+    type: bonus
+    value: 50
+    expiration-date: 1674045325
+    usages: 1
+
+  DEDMOROZ2023:
+    type: amount
+    value: 25
+    expiration-date: 1674045325
+    usages: 1
+    

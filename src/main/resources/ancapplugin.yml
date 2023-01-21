@@ -1,0 +1,10 @@
+id: 12879
+commands:
+  list:
+    - donate
+    - promo-code
+    - ancap-pay
+  aliases:
+    donate: [dn]
+    ancap-pay: [ancappay, qiwi-pay, qiwipay]
+    promo-code: [promo]

@@ -1,0 +1,35 @@
+language: en
+
+ru:
+  ancap:
+    types:
+      ru:
+        ancap:
+          pay:
+            qiwi:
+              plugin:
+                promocode:
+                  PromocodeAPI: "promotional code"
+    pay:
+      messages:
+        plugin-info:
+          - "&6QiwiPay v%VERSION%."
+          - "&6Authors: %AUTHORS%."
+          - "&6Would you also like an autodonate on your server? See <click:OPEN_URL:https://www.spigotmc.org/resources/qiwipay-Бесплатная-система-донатов-с-промокодами-к-пополнению.96223>&6&nhere</click>&f!"
+        donate-usage: "&6To top up your server balance, type &6&n/donate pay <summary> [promo code]&6. If you don't have any promo codes, just don't write anything after the amount."
+        bill:
+          comment: "Refill the player %PLAYER% on the server ANCAPMINE"
+          pay-url:
+            - "§8--- --- --- --- --- --- --- --- --- --- --- --- --- ---"
+            - "§bPress §d§n%CLICK%§b to top up your balance! After payment, the money will be credited automatically within 30 seconds."
+            - "§8--- --- --- --- --- --- --- --- --- --- --- --- --- ---"
+          pay-url-click: "here"
+        fixed-promocode-used: "&6You have successfully used the promo code &6&n%NAME%&6 and received on your balance %REWARD%&6 rubles!"
+        balance-fill: "&6You topped up your balance for &6&n%AMOUNT%&6 rubles."
+        promo-created: "Promotion code %NAME% of %TYPE% type with %VALUE% value on %USAGES% usage expiring in %EXPIRATION% hours was successfully created."
+        error:
+          promocode:
+            spent: "&cThis promo code has already been exhausted."
+            expired: "&cThis promo code has expired."
+            already-used: "&cYou have already used this promo code!"
+            illegal-type: "&cThis is a non-fixed-reward promo code."
