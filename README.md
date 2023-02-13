@@ -7,7 +7,7 @@
 
 ### Преимущества
 
-![](https://img.shields.io/codefactor/grade/github/PukPukov/QiwiPay?style=for-the-badge&logo=appveyor) ![](https://img.shields.io/codeclimate/maintainability-percentage/PukPukov/qiwipay?style=for-the-badge&logo=appveyor)
+![](https://img.shields.io/codefactor/grade/github/ancap-kun/qiwipay?style=for-the-badge&logo=appveyor) ![](https://img.shields.io/codeclimate/maintainability-percentage/ancap-kun/qiwipay?style=for-the-badge&logo=appveyor)
 
 - Отсутствие каких-либо комиссий на переводы;
 - Интернационализация;
