@@ -6,19 +6,19 @@ package ru.ancap.pay.plugin.promocode;
 import lombok.AllArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.ancap.framework.api.nosql.database.Database;
-import ru.ancap.pay.plugin.plugin.AncapPay;
+import ru.ancap.framework.database.nosql.PathDatabase;
+import ru.ancap.pay.plugin.AncapPay;
+import ru.ancap.pay.plugin.player.PayPlayer;
 import ru.ancap.pay.plugin.promocode.exception.IllegalPromotionalCodeTypeException;
 import ru.ancap.pay.plugin.promocode.exception.PromotionalCodeIsAlreadyUsedException;
 import ru.ancap.pay.plugin.promocode.exception.PromotionalCodeIsExpiredException;
 import ru.ancap.pay.plugin.promocode.exception.PromotionalCodeIsSpentException;
-import ru.ancap.pay.plugin.player.PayPlayer;
 
 @AllArgsConstructor
 public class PromocodeAPI {
     
     private final String name;
-    private final Database database;
+    private final PathDatabase database;
     
     @Nullable
     public static PromocodeAPI find(@NotNull String name) {
@@ -29,16 +29,16 @@ public class PromocodeAPI {
     @NotNull
     public static PromocodeAPI create(String name, PromocodeType type, double value, long usages, long expiration) {
         PromocodeAPI promocodeAPI = new PromocodeAPI(name);
-        Database db = promocodeAPI.database;
+        PathDatabase db = promocodeAPI.database;
         switch (type) {
-            case BONUS -> {
+            case BONUS:
                 db.write("type", "bonus");
                 db.write("bonus", value);
-            }
-            case FIXED -> {
+                break;
+            case FIXED:
                 db.write("type", "fixed");
                 db.write("reward", value);
-            }
+                break;
         }
         db.write("expirationDate", 3600000L * expiration + System.currentTimeMillis());
         db.write("usages", usages);

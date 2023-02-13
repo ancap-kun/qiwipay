@@ -23,10 +23,10 @@ import com.qiwi.billpayments.sdk.model.in.Customer;
 import com.qiwi.billpayments.sdk.model.out.BillResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import ru.ancap.framework.api.LAPI;
+import ru.ancap.framework.language.LAPI;
+import ru.ancap.framework.language.additional.LAPIDomain;
+import ru.ancap.pay.plugin.AncapPay;
 import ru.ancap.pay.plugin.config.QiwiConfig;
-import ru.ancap.pay.plugin.plugin.AncapPay;
-import ru.ancap.util.AncapDebug;
 
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
@@ -41,12 +41,9 @@ public class QiwiModule {
     private final Map<String, BillResponse> bills = new HashMap<>();
     private final BillPaymentClient client;
 
-    /**
-     * @param name name of player
-     */
     @SneakyThrows
     public void generateBill(String name, long amount, Runnable onPaid) {
-        if (bills.containsKey(name)) client.cancelBill(bills.get(name).getBillId());
+        if (this.bills.containsKey(name)) this.client.cancelBill(this.bills.get(name).getBillId());
         String billId = UUID.randomUUID().toString();
         CreateBillInfo billInfo = new CreateBillInfo(
                 billId,
@@ -54,7 +51,7 @@ public class QiwiModule {
                         BigDecimal.valueOf(amount),
                         Currency.getInstance(QiwiConfig.loaded().getString("acquiring.qiwi.currency"))
                 ),
-                LAPI.localized(AncapPay.MESSAGE_DOMAIN+"bill.comment", name)
+                LAPI.localized(LAPIDomain.of(AncapPay.class, "bill.comment"), name)
                         .replace("%PLAYER%", name),
                 ZonedDateTime.now().plusMinutes(QiwiConfig.loaded().getLong("acquiring.qiwi.bill-expiration-time")),
                 new Customer(
@@ -64,7 +61,7 @@ public class QiwiModule {
                 ),
                 QiwiConfig.loaded().getString("acquiring.qiwi.phone")
         );
-        bills.put(name, client.createBill(billInfo));
+        this.bills.put(name, this.client.createBill(billInfo));
         this.runChecks(billId, onPaid);
     }
 
@@ -72,21 +69,21 @@ public class QiwiModule {
         new Thread(() -> {
             int skippedChecks = 0;
             while (true) {
-                BillResponse response = client.getBillInfo(billId);
+                BillResponse response = this.client.getBillInfo(billId);
                 boolean breakFlag = false;
                 switch (response.getStatus().getValue()) {
-                    case PAID -> {
+                    case PAID:
                         breakFlag = true;
                         onPaid.run();
-                    }
-                    case REJECTED, EXPIRED -> {
+                        break;
+                    case REJECTED: 
+                    case EXPIRED:
                         breakFlag = true;
-                    }
-                    case WAITING -> {
-                        AncapDebug.debug("Waiting for paid...");
+                        break;
+                    case WAITING:
                         skippedChecks++;
                         LockSupport.parkUntil(skippedChecks < 120 ? System.currentTimeMillis()+5000 : System.currentTimeMillis()+30000);
-                    }
+                        break;
                 }
                 if (breakFlag) break;
             }

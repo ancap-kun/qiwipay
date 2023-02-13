@@ -4,67 +4,56 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import ru.ancap.framework.api.LAPI;
-import ru.ancap.framework.api.additional.LAPICommunicator;
-import ru.ancap.pay.plugin.plugin.AncapPay;
+import ru.ancap.communicate.Communicator;
+import ru.ancap.communicate.message.Message;
+import ru.ancap.communicate.replacement.Placeholder;
+import ru.ancap.framework.language.additional.LAPIMessage;
+import ru.ancap.pay.plugin.AncapPay;
 import ru.ancap.pay.plugin.promocode.PromocodeType;
-import ru.ancap.util.Replacement;
 
 @RequiredArgsConstructor
 public class PaySpeaker {
     
     private final CommandSender receiver;
-    
-    public void sendAuthors() {
-        new LAPICommunicator(this.receiver).send(
-                AncapPay.MESSAGE_DOMAIN+"plugin-info",
-                new Replacement("%VERSION%", AncapPay.INSTANCE.getDescription().getVersion()),
-                new Replacement("%AUTHORS%", AncapPay.INSTANCE.getDescription().getAuthors().stream().reduce((s1, s2) -> s1 + " ," +s2))
-        );
-    }
 
     public void sendPayUrl(String payUrl) {
-        String miniMessageClickIntegration = "<click:open_url:%URL%>%URL_CLICK_MESSAGE%</click>"
-                .replace("%URL%", payUrl)
-                .replace("%URL_CLICK_MESSAGE%", LAPI.localized(
-                        AncapPay.MESSAGE_DOMAIN+"bill.pay-url-click",
-                        this.receiver.getName()
-                ));
-        new LAPICommunicator(receiver).send(
-                AncapPay.MESSAGE_DOMAIN+"bill.pay-url",
-                new Replacement(
-                        "%CLICK%",
-                        miniMessageClickIntegration
-                )
-        );
-        if (receiver instanceof Player player) {
+        new Communicator(this.receiver).send(new LAPIMessage(
+                AncapPay.class, "bill.pay-url",
+                new Placeholder("click", new Message(
+                        "<click:open_url:%URL%>%URL_CLICK_MESSAGE%</click>", 
+                        new Placeholder("url", payUrl),
+                        new Placeholder("url_click_message", new LAPIMessage(AncapPay.class, "bill.pay-url-click"))
+                ))
+        ));
+        if (this.receiver instanceof Player) {
+            Player player = (Player) receiver; 
             player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 2, 1);
         }
     }
 
     public void sendBalanceFill(double moneyToGive) {
-        new LAPICommunicator(this.receiver).send(
-                AncapPay.MESSAGE_DOMAIN+"balance-fill",
-                new Replacement("%AMOUNT%", moneyToGive)
-        );
+        new Communicator(this.receiver).send(new LAPIMessage(
+                AncapPay.class, "balance-fill",
+                new Placeholder("amount", moneyToGive)
+        ));
     }
 
     public void sendPromocodeCreated(String name, PromocodeType type, double value, long usages, long expiration) {
-        new LAPICommunicator(this.receiver).send(
-                AncapPay.MESSAGE_DOMAIN+"promocode-created",
-                new Replacement("%NAME%", name),
-                new Replacement("%VALUE%", value),
-                new Replacement("%TYPE%", type),
-                new Replacement("%USAGES%", usages),
-                new Replacement("%EXPIRATION%", (expiration - System.currentTimeMillis()) / 3600000L)
-        );
+        new Communicator(this.receiver).send(new LAPIMessage(
+                AncapPay.class, "promocode-created",
+                new Placeholder("NAME", name),
+                new Placeholder("VALUE", value),
+                new Placeholder("TYPE", type),
+                new Placeholder("USAGES", usages),
+                new Placeholder("EXPIRATION", (expiration - System.currentTimeMillis()) / 3600000L)
+        ));
     }
 
     public void sendPromocodeSuccessfullyUsed(String name, double reward) {
-        new LAPICommunicator(this.receiver).send(
-                AncapPay.MESSAGE_DOMAIN+"fixed-promocode-used",
-                new Replacement("%NAME%", name),
-                new Replacement("%REWARD%", reward)
-        );
+        new Communicator(this.receiver).send(new LAPIMessage(
+                AncapPay.class, "fixed-promocode-used",
+                new Placeholder("NAME", name),
+                new Placeholder("REWARD", reward)
+        ));
     }
 }

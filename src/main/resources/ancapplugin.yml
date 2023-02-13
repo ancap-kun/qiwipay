@@ -1,10 +1,14 @@
-id: 12879
+identifier: 12879
+
 commands:
   list:
     - donate
     - promo-code
     - ancap-pay
+    - wallet
+    - buy
+    - reward
   aliases:
-    donate: [dn]
+    donate: [dn, pay]
     ancap-pay: [ancappay, qiwi-pay, qiwipay]
     promo-code: [promo]

@@ -17,6 +17,6 @@ public class QiwiConfig {
     }
     
     public void load() {
-        INSTANCE = this;
+        QiwiConfig.INSTANCE = this;
     }
 }

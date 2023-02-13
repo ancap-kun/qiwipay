@@ -1,9 +1,9 @@
 package ru.ancap.pay.plugin.promocode.mapper;
 
-import ru.ancap.framework.api.command.commands.transformer.basic.AbstractTransformer;
+import ru.ancap.framework.command.api.commands.operator.arguments.extractor.basic.PrimitiveExtractor;
 import ru.ancap.pay.plugin.promocode.PromocodeAPI;
 
-public class PromocodeTransformer extends AbstractTransformer<PromocodeAPI> {
+public class PromocodeTransformer extends PrimitiveExtractor<PromocodeAPI> {
     
     public PromocodeTransformer() {
         super(PromocodeAPI.class);

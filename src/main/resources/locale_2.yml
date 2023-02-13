@@ -11,7 +11,7 @@ ru:
                 promocode:
                   PromocodeAPI: "promotional code"
     pay:
-      messages:
+      plugin:
         plugin-info:
           - "&6QiwiPay v%VERSION%."
           - "&6Authors: %AUTHORS%."
@@ -27,7 +27,11 @@ ru:
         fixed-promocode-used: "&6You have successfully used the promo code &6&n%NAME%&6 and received on your balance %REWARD%&6 rubles!"
         balance-fill: "&6You topped up your balance for &6&n%AMOUNT%&6 rubles."
         promo-created: "Promotion code %NAME% of %TYPE% type with %VALUE% value on %USAGES% usage expiring in %EXPIRATION% hours was successfully created."
+        wallet-filled: "&aYour account has been replenished by %AMOUNT% rubles."
+        product-bought: "&aYou successfully bought the product %PRODUCT%."
+        wallet: "&aYour wallet has %AMOUNT% rubles."
         error:
+          not-enough-money: "&cYou don't have enough money to buy this product!"
           promocode:
             spent: "&cThis promo code has already been exhausted."
             expired: "&cThis promo code has expired."
