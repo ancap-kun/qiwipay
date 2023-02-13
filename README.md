@@ -59,5 +59,3 @@
   
 ## Самостоятельная сборка
 Скачайте zip архив проекта и выполните install.bat/mvn clean install.
-
-*QiwiPay является форком EdenPay.*
