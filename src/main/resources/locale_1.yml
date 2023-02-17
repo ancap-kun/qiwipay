@@ -1,4 +1,5 @@
 language: uk
+version: 1
 
 ru:
   ancap:
@@ -6,10 +7,9 @@ ru:
       ru:
         ancap:
           pay:
-            qiwi:
-              plugin:
-                promocode:
-                  PromocodeAPI: "промокод"
+            plugin:
+              promocode:
+                PromocodeAPI: "промокод"
     pay:
       plugin:
         plugin-info:

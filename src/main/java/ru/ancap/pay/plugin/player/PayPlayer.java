@@ -6,7 +6,6 @@ import ru.ancap.pay.plugin.AncapPay;
 import ru.ancap.pay.plugin.promocode.PromocodeAPI;
 import ru.ancap.pay.plugin.promocode.exception.PromotionalCodeIsAlreadyUsedException;
 import ru.ancap.pay.plugin.transaction.TransactionAPI;
-import ru.ancap.commons.AncapDebug;
 
 @AllArgsConstructor
 public class PayPlayer {
@@ -36,7 +35,6 @@ public class PayPlayer {
     }
     
     public void balance(double newBalance) {
-        AncapDebug.debug("new balance", newBalance);
         this.database.write("balance", newBalance);
     }
 }

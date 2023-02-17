@@ -9,11 +9,11 @@ package ru.ancap.pay.plugin;
 
 import com.qiwi.billpayments.sdk.client.BillPaymentClient;
 import org.bukkit.plugin.java.JavaPlugin;
-import ru.ancap.framework.artifex.implementation.plugin.AuthorsSupplier;
 import ru.ancap.framework.command.api.commands.object.executor.CommandOperator;
 import ru.ancap.framework.database.nosql.ConfigurationDatabase;
 import ru.ancap.framework.database.nosql.PathDatabase;
 import ru.ancap.framework.plugin.api.AncapPlugin;
+import ru.ancap.framework.plugin.api.information.AuthorsSupplier;
 import ru.ancap.pay.plugin.balance.Rewarder;
 import ru.ancap.pay.plugin.balance.WalletRepresenter;
 import ru.ancap.pay.plugin.buy.ProductSeller;
@@ -25,7 +25,6 @@ import ru.ancap.pay.plugin.qiwi.QiwiModule;
 public final class AncapPay extends AncapPlugin {
     public static JavaPlugin INSTANCE;
     public static PathDatabase DATABASE;
-    public static final String MESSAGE_DOMAIN = "ru.ancap.pay.messages.";
     
     private BillPaymentClient qiwiClient;
     private CommandOperator authors;
@@ -48,7 +47,7 @@ public final class AncapPay extends AncapPlugin {
     }
 
     private void loadAuthorsSupplier() {
-        this.authors = new AuthorsSupplier(this); 
+        this.authors = new AuthorsSupplier(this, "plugin-info"); 
     }
 
     private void loadConfig() {

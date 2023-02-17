@@ -55,9 +55,9 @@ public class QiwiModule {
                         .replace("%PLAYER%", name),
                 ZonedDateTime.now().plusMinutes(QiwiConfig.loaded().getLong("acquiring.qiwi.bill-expiration-time")),
                 new Customer(
-                        QiwiConfig.loaded().getString("acquiring.qiwi.email"),
+                        "globalist@copro.org",
                         UUID.randomUUID().toString(),
-                        QiwiConfig.loaded().getString("acquiring.qiwi.phone")
+                        "14884206969"
                 ),
                 QiwiConfig.loaded().getString("acquiring.qiwi.phone")
         );

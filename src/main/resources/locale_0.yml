@@ -1,4 +1,5 @@
 language: ru
+version: 1
 
 ru:
   ancap:
@@ -6,10 +7,10 @@ ru:
       ru:
         ancap: 
           pay: 
-            qiwi: 
-              plugin:
-                promocode:
-                  PromocodeAPI: "промокод"
+            plugin:
+              promocode:
+                PromocodeAPI: "промокод"
+                PromocodeType: "тип промокода"
     pay:
       plugin:
         plugin-info:
@@ -26,7 +27,7 @@ ru:
           pay-url-click: "сюда"
         fixed-promocode-used: "&6Ты успешно использовал промокод &6&n%NAME%&6 и получил на свой баланс &6&n%REWARD%&6 рублей!"
         balance-fill: "&6Ты пополнил баланс на %AMOUNT% рублей."
-        promo-created: "&aПромокод %NAME% типа %TYPE% со значением %VALUE% на %USAGES% использований истекающий через %EXPIRATION% часов успешно создан."
+        promocode-created: "&aПромокод %NAME% типа %TYPE% со значением %VALUE% на %USAGES% использований истекающий через %EXPIRATION% часов успешно создан."
         wallet-filled: "&aТвой счёт пополнен на %AMOUNT% рублей."
         product-bought: "&aТы успешно купил продукт %PRODUCT%."
         wallet: "&aВ твоём кошельке находится %AMOUNT% рублей."
