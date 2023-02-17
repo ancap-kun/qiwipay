@@ -11,7 +11,6 @@
  */
 package ru.ancap.pay.plugin.promocode.command;
 
-import ru.ancap.communicate.Communicator;
 import ru.ancap.framework.command.api.commands.CommandTarget;
 import ru.ancap.framework.command.api.commands.object.executor.CommandOperator;
 import ru.ancap.framework.command.api.commands.operator.arguments.Accept;
@@ -20,10 +19,11 @@ import ru.ancap.framework.command.api.commands.operator.arguments.Arguments;
 import ru.ancap.framework.command.api.commands.operator.arguments.extractor.basic.DoubleExtractor;
 import ru.ancap.framework.command.api.commands.operator.arguments.extractor.basic.NumberExtractor;
 import ru.ancap.framework.command.api.commands.operator.arguments.extractor.basic.Self;
-import ru.ancap.framework.command.api.commands.operator.delegator.CommandDelegator;
-import ru.ancap.framework.command.api.commands.operator.delegator.subcommand.Raw;
-import ru.ancap.framework.command.api.commands.operator.delegator.subcommand.SubCommand;
-import ru.ancap.framework.command.api.commands.operator.delegator.subcommand.rule.delegate.StringDelegatePattern;
+import ru.ancap.framework.command.api.commands.operator.delegate.Delegate;
+import ru.ancap.framework.command.api.commands.operator.delegate.subcommand.Raw;
+import ru.ancap.framework.command.api.commands.operator.delegate.subcommand.SubCommand;
+import ru.ancap.framework.command.api.commands.operator.delegate.subcommand.rule.delegate.StringDelegatePattern;
+import ru.ancap.framework.communicate.Communicator;
 import ru.ancap.framework.language.additional.LAPIMessage;
 import ru.ancap.pay.plugin.AncapPay;
 import ru.ancap.pay.plugin.promocode.PromocodeAPI;
@@ -40,7 +40,7 @@ public class PromocodeOperator extends CommandTarget {
     
     public PromocodeOperator(CommandOperator authors) {
         super(
-                new CommandDelegator(
+                new Delegate(
                         new Raw(authors),
                         new SubCommand(
                                 new StringDelegatePattern("create", "new"),

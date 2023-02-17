@@ -9,10 +9,10 @@ package ru.ancap.pay.plugin;
 
 import com.qiwi.billpayments.sdk.client.BillPaymentClient;
 import org.bukkit.plugin.java.JavaPlugin;
+import ru.ancap.framework.artifex.implementation.plugin.AuthorsSupplier;
 import ru.ancap.framework.command.api.commands.object.executor.CommandOperator;
 import ru.ancap.framework.database.nosql.ConfigurationDatabase;
 import ru.ancap.framework.database.nosql.PathDatabase;
-import ru.ancap.framework.language.additional.LAPIDomain;
 import ru.ancap.framework.plugin.api.AncapPlugin;
 import ru.ancap.pay.plugin.balance.Rewarder;
 import ru.ancap.pay.plugin.balance.WalletRepresenter;
@@ -48,13 +48,11 @@ public final class AncapPay extends AncapPlugin {
     }
 
     private void loadAuthorsSupplier() {
-        this.authors = this.authorsSupplier(LAPIDomain.of(AncapPay.class, "plugin-info"));
+        this.authors = new AuthorsSupplier(this); 
     }
 
     private void loadConfig() {
-        new QiwiConfig(
-                this.getConfig()
-        ).load();
+        new QiwiConfig(this.getConfiguration()).load();
     }
 
     private void loadQiwiModule() {

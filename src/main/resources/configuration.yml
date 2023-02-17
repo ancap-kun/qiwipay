@@ -1,0 +1,39 @@
+# Если плагин оказался полезен - оцени его звездой на github: https://github.com/ancap-kun/qiwipay/
+# и поставь лайки и рецензии на форумах, где распространяется QiwiPay:
+# https://www.spigotmc.org/resources/qiwipay-бесплатный-автодонат-без-комиссии.96223
+# https://spigotmc.ru/resources/qiwipay-besplatnyj-avtodonat-bez-komissii.775/
+# Это поможет плагину стать известнее.
+
+configuration-version: 1
+
+acquiring:
+  qiwi:
+    # Секретный ключ P2P API
+    token: 000
+    
+    # Qiwi перенаправит сюда после оплаты
+    site: "ancapmine.ru"
+    
+    # Срок, через который счёт истечёт, в минутах. Рекомендуется не менять
+    bill-expiration-time: 60
+    
+    # Валюта для приёма платежей
+    currency: "RUB"
+    
+payments:
+  
+  # Коэффициент мультипликации
+  multiplication: 1
+  # Команда, которая срабатывает при прохождении оплаты
+  # Например - /money give %PLAYER% %AMOUNT%
+  # %player% - игрок, который задонатил, %AMOUNT% - число, полученное при умножении задоначенной суммы на коэффициент мультипликации
+  command: "reward %PLAYER% %AMOUNT%"
+
+donates:
+  vip:
+    price: 100
+    command: "kill %PLAYER%"
+  premium:
+    price: 250
+    command: "lp user %PLAYER% parent addtemp premium 30d"
+  

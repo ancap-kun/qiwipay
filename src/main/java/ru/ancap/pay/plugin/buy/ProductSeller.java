@@ -2,14 +2,14 @@ package ru.ancap.pay.plugin.buy;
 
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.sound.Sound;
-import ru.ancap.communicate.Communicator;
-import ru.ancap.communicate.message.Message;
-import ru.ancap.communicate.replacement.Placeholder;
 import ru.ancap.framework.command.api.commands.CommandTarget;
 import ru.ancap.framework.command.api.commands.operator.arguments.Accept;
 import ru.ancap.framework.command.api.commands.operator.arguments.Argument;
 import ru.ancap.framework.command.api.commands.operator.arguments.Arguments;
 import ru.ancap.framework.command.api.commands.operator.arguments.extractor.basic.Extractor;
+import ru.ancap.framework.communicate.Communicator;
+import ru.ancap.framework.communicate.message.Message;
+import ru.ancap.framework.communicate.replacement.Placeholder;
 import ru.ancap.framework.language.additional.LAPIMessage;
 import ru.ancap.framework.plugin.api.AncapBukkit;
 import ru.ancap.pay.plugin.AncapPay;

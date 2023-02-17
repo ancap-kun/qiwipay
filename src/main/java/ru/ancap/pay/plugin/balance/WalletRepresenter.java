@@ -1,10 +1,10 @@
 package ru.ancap.pay.plugin.balance;
 
-import ru.ancap.communicate.Communicator;
-import ru.ancap.communicate.message.Message;
-import ru.ancap.communicate.replacement.Placeholder;
 import ru.ancap.framework.command.api.commands.object.event.CommandDispatch;
 import ru.ancap.framework.command.api.commands.object.executor.CommandOperator;
+import ru.ancap.framework.communicate.Communicator;
+import ru.ancap.framework.communicate.message.Message;
+import ru.ancap.framework.communicate.replacement.Placeholder;
 import ru.ancap.framework.language.additional.LAPIMessage;
 import ru.ancap.pay.plugin.AncapPay;
 import ru.ancap.pay.plugin.player.PayPlayer;

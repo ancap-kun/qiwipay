@@ -11,13 +11,13 @@
 package ru.ancap.pay.plugin.donate;
 
 import org.bukkit.command.CommandSender;
-import ru.ancap.communicate.Communicator;
 import ru.ancap.framework.command.api.commands.CommandTarget;
 import ru.ancap.framework.command.api.commands.operator.arguments.Accept;
 import ru.ancap.framework.command.api.commands.operator.arguments.Argument;
 import ru.ancap.framework.command.api.commands.operator.arguments.Arguments;
 import ru.ancap.framework.command.api.commands.operator.arguments.bundle.ArgumentsBundle;
 import ru.ancap.framework.command.api.commands.operator.arguments.extractor.basic.NumberExtractor;
+import ru.ancap.framework.communicate.Communicator;
 import ru.ancap.framework.language.additional.LAPIMessage;
 import ru.ancap.framework.plugin.api.AncapBukkit;
 import ru.ancap.pay.plugin.AncapPay;
