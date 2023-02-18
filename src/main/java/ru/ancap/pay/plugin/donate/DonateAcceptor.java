@@ -48,7 +48,7 @@ public class DonateAcceptor extends CommandTarget {
                         moneyToGive = PromocodeAPI.applyBonus(promocode, moneyToGive);
                         AncapBukkit.sendConsoleCommand(
                                 QiwiConfig.loaded().getString("payments.command")
-                                        .replace("%MONEY%", "" + (long) moneyToGive)
+                                        .replace("%AMOUNT%", "" + (long) moneyToGive)
                                         .replace("%PLAYER%", sender.getName())
                         );
                         TransactionAPI transaction = TransactionAPI.create(
