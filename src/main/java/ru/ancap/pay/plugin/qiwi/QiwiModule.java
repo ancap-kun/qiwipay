@@ -59,7 +59,7 @@ public class QiwiModule {
                         UUID.randomUUID().toString(),
                         "14884206969"
                 ),
-                QiwiConfig.loaded().getString("acquiring.qiwi.phone")
+                QiwiConfig.loaded().getString("acquiring.qiwi.site")
         );
         this.bills.put(name, this.client.createBill(billInfo));
         this.runChecks(billId, onPaid);

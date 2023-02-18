@@ -44,10 +44,10 @@ public class DonateAcceptor extends CommandTarget {
                     Long amount = bundle.get("amount", Long.class);
                     PromocodeAPI promocode = bundle.get("promocode", PromocodeAPI.class);
                     qiwiModule.generateBill(dispatch.source().sender().getName(), amount, () -> {
-                        double moneyToGive = amount * QiwiConfig.loaded().getDouble("acquiring.qiwi.multiplication");
+                        double moneyToGive = amount * QiwiConfig.loaded().getDouble("payments.multiplication");
                         moneyToGive = PromocodeAPI.applyBonus(promocode, moneyToGive);
                         AncapBukkit.sendConsoleCommand(
-                                QiwiConfig.loaded().getString("acquiring.qiwi.command")
+                                QiwiConfig.loaded().getString("payments.command")
                                         .replace("%MONEY%", "" + (long) moneyToGive)
                                         .replace("%PLAYER%", sender.getName())
                         );
