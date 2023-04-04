@@ -32,7 +32,7 @@ import ru.ancap.pay.plugin.promocode.exception.IllegalPromotionalCodeTypeExcepti
 import ru.ancap.pay.plugin.promocode.exception.PromotionalCodeIsAlreadyUsedException;
 import ru.ancap.pay.plugin.promocode.exception.PromotionalCodeIsExpiredException;
 import ru.ancap.pay.plugin.promocode.exception.PromotionalCodeIsSpentException;
-import ru.ancap.pay.plugin.promocode.mapper.PromocodeTransformer;
+import ru.ancap.pay.plugin.promocode.mapper.PromocodeExtractor;
 import ru.ancap.pay.plugin.promocode.mapper.PromocodeTypeTransformer;
 import ru.ancap.pay.plugin.speaker.PaySpeaker;
 
@@ -69,7 +69,7 @@ public class PromocodeOperator extends CommandTarget {
                                 new StringDelegatePattern("remove", "delete"),
                                 new Arguments(
                                         new Accept(
-                                                new Argument("promocode", new PromocodeTransformer())
+                                                new Argument("promocode", new PromocodeExtractor())
                                         ),
                                         dispatch -> {
                                             if (!dispatch.source().sender().isOp()) return;
@@ -83,7 +83,7 @@ public class PromocodeOperator extends CommandTarget {
                                 new StringDelegatePattern("use"),
                                 new Arguments(
                                         new Accept(
-                                                new Argument("promocode", new PromocodeTransformer())
+                                                new Argument("promocode", new PromocodeExtractor())
                                         ),
                                         dispatch -> {
                                             PromocodeAPI promocode = dispatch.arguments().get("promocode", PromocodeAPI.class);

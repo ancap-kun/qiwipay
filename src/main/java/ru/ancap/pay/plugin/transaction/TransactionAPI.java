@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.ancap.commons.null_.SafeNull;
 import ru.ancap.framework.database.nosql.PathDatabase;
 import ru.ancap.pay.plugin.AncapPay;
 import ru.ancap.pay.plugin.promocode.PromocodeAPI;
@@ -36,21 +37,20 @@ public class TransactionAPI {
     
     @NotNull
     public String getDonater() {
-        return this.database.getString("donater-name");
+        return this.database.readString("donater-name");
     }
     
     public long getPayedAmount() {
-        return this.database.getNumber("payed");
+        return this.database.readInteger("payed");
     }
     
     public long getTransactionTime() {
-        return this.database.getNumber("time");
+        return this.database.readInteger("time");
     }
     
     @Nullable
     public PromocodeAPI usedPromocode() {
-        String promocodeName = this.database.getString("promocode-used");
-        return promocodeName == null ? null : PromocodeAPI.find(promocodeName);
+        return SafeNull.function(this.database.readString("promocode-used"), PromocodeAPI::find);
     }
     
 }

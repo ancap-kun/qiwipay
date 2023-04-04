@@ -1,10 +1,9 @@
 # Если плагин оказался полезен - оцени его звездой на github: https://github.com/ancap-kun/qiwipay/
 # и поставь лайки и рецензии на форумах, где распространяется QiwiPay:
 # https://www.spigotmc.org/resources/qiwipay-бесплатный-автодонат-без-комиссии.96223
-# https://spigotmc.ru/resources/qiwipay-besplatnyj-avtodonat-bez-komissii.775/
 # Это поможет плагину стать известнее.
 
-configuration-version: 1
+configuration-version: 2
 
 acquiring:
   qiwi:

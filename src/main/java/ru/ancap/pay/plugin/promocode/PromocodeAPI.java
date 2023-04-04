@@ -54,15 +54,15 @@ public class PromocodeAPI {
     
     @NotNull
     public PromocodeType getType() {
-        return PromocodeType.valueOf(database.getString("type").toUpperCase());
+        return PromocodeType.valueOf(database.readString("type").toUpperCase());
     }
     
     public double getReward() {
-        return database.getDouble("reward");
+        return database.readNumber("reward");
     }
     
     public double getBonus() {
-        return database.getDouble("bonus");
+        return database.readNumber("bonus");
     }
 
     @NotNull
@@ -75,7 +75,7 @@ public class PromocodeAPI {
     }
     
     public long getExpirationDate() {
-        return database.getNumber("expiration-date");
+        return database.readInteger("expiration-date");
     }
     
     public void disable() {
@@ -97,7 +97,7 @@ public class PromocodeAPI {
     }
 
     public long getUsages() {
-        return database.getNumber("usages");
+        return database.readInteger("usages");
     }
 
     public static double applyBonus(PromocodeAPI promocodeAPI, double money) {

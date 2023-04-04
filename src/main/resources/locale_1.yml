@@ -1,5 +1,5 @@
 language: uk
-version: 1
+version: 2
 
 ru:
   ancap:
@@ -10,6 +10,7 @@ ru:
             plugin:
               promocode:
                 PromocodeAPI: "промокод"
+                PromocodeType: "тип промокоду"
     pay:
       plugin:
         plugin-info:

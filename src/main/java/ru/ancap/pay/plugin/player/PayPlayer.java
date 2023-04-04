@@ -1,20 +1,30 @@
 package ru.ancap.pay.plugin.player;
 
-import lombok.AllArgsConstructor;
 import ru.ancap.framework.database.nosql.PathDatabase;
 import ru.ancap.pay.plugin.AncapPay;
 import ru.ancap.pay.plugin.promocode.PromocodeAPI;
 import ru.ancap.pay.plugin.promocode.exception.PromotionalCodeIsAlreadyUsedException;
 import ru.ancap.pay.plugin.transaction.TransactionAPI;
 
-@AllArgsConstructor
 public class PayPlayer {
     
-    private final String name;
     private final PathDatabase database;
+    
+    private PayPlayer(PathDatabase database) {
+        this.database = database;
+        if (!this.created()) this.create();
+    }
+
+    private void create() {
+        this.database.write("balance", 0D);
+    }
+
+    private boolean created() {
+        return this.database.isSet("");
+    }
 
     public static PayPlayer get(String name) {
-        return new PayPlayer(name, AncapPay.DATABASE.inner("players."+name));
+        return new PayPlayer(AncapPay.DATABASE.inner("players."+name));
     }
     
     public void saveDonate(TransactionAPI transaction) {
@@ -31,7 +41,7 @@ public class PayPlayer {
     }
     
     public double balance() {
-        return this.database.getDouble("balance");
+        return this.database.readNumber("balance");
     }
     
     public void balance(double newBalance) {
