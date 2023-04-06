@@ -19,6 +19,7 @@ import ru.ancap.pay.plugin.balance.WalletRepresenter;
 import ru.ancap.pay.plugin.buy.ProductSeller;
 import ru.ancap.pay.plugin.config.QiwiConfig;
 import ru.ancap.pay.plugin.donate.DonateAcceptor;
+import ru.ancap.pay.plugin.plugin.MainInput;
 import ru.ancap.pay.plugin.promocode.command.PromocodeOperator;
 import ru.ancap.pay.plugin.qiwi.QiwiModule;
 
@@ -38,7 +39,7 @@ public final class AncapPay extends AncapPlugin {
         this.loadConfig();
         this.loadQiwiModule();
         this.loadAuthorsSupplier();
-        this.registerExecutor("ancap-pay", this.authors);
+        this.registerExecutor("ancap-pay", new MainInput(this.authors));
         this.registerExecutor("donate", new DonateAcceptor(this.qiwiModule));
         this.registerExecutor("promo-code", new PromocodeOperator(this.authors));
         this.registerExecutor("wallet", new WalletRepresenter());
@@ -47,7 +48,7 @@ public final class AncapPay extends AncapPlugin {
     }
 
     private void loadAuthorsSupplier() {
-        this.authors = new AuthorsSupplier(this, "plugin-info"); 
+        this.authors = new AuthorsSupplier(this); 
     }
 
     private void loadConfig() {

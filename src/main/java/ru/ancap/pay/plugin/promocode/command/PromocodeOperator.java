@@ -1,6 +1,6 @@
 /*
  * Decompiled with CFR 0.150.
- * 
+ *
  * Could not load the following classes:
  *  org.bukkit.Bukkit
  *  org.bukkit.Sound
@@ -37,77 +37,75 @@ import ru.ancap.pay.plugin.promocode.mapper.PromocodeTypeTransformer;
 import ru.ancap.pay.plugin.speaker.PaySpeaker;
 
 public class PromocodeOperator extends CommandTarget {
-    
+
     public PromocodeOperator(CommandOperator authors) {
-        super(
-                new Delegate(
-                        new Raw(authors),
-                        new SubCommand(
-                                new StringDelegatePattern("create", "new"),
-                                new Arguments(
-                                        new Accept(
-                                                new Argument("name", new Self()),
-                                                new Argument("type", new PromocodeTypeTransformer()),
-                                                new Argument("value", new DoubleExtractor()),
-                                                new Argument("usages", new NumberExtractor()),
-                                                new Argument("expiration", new NumberExtractor())
-                                        ),
-                                        dispatch -> {
-                                            if (!dispatch.source().sender().isOp()) return;
-                                            String name        = dispatch.arguments().get("name", String.class);
-                                            PromocodeType type = dispatch.arguments().get("type", PromocodeType.class);
-                                            double value       = dispatch.arguments().get("value", Double.class);
-                                            long usages        = dispatch.arguments().get("usages", Long.class);
-                                            long expiration    = dispatch.arguments().get("expiration", Long.class);
-                                            
-                                            PromocodeAPI.create(name, type, value, usages, expiration);
-                                            new PaySpeaker(dispatch.source().sender()).sendPromocodeCreated(name, type, value, usages, expiration);
-                                        }
-                                )
-                        ),
-                        new SubCommand(
-                                new StringDelegatePattern("remove", "delete"),
-                                new Arguments(
-                                        new Accept(
-                                                new Argument("promocode", new PromocodeExtractor())
-                                        ),
-                                        dispatch -> {
-                                            if (!dispatch.source().sender().isOp()) return;
-                                            PromocodeAPI promocode = dispatch.arguments().get("promocode", PromocodeAPI.class);
-                                            
-                                            promocode.disable();
-                                        }
-                                )
-                        ),
-                        new SubCommand(
-                                new StringDelegatePattern("use"),
-                                new Arguments(
-                                        new Accept(
-                                                new Argument("promocode", new PromocodeExtractor())
-                                        ),
-                                        dispatch -> {
-                                            PromocodeAPI promocode = dispatch.arguments().get("promocode", PromocodeAPI.class);
-                                            try {
-                                                promocode.use(dispatch.source().sender().getName());
-                                                new PaySpeaker(dispatch.source().sender()).sendPromocodeSuccessfullyUsed(
-                                                        promocode.getName(), 
-                                                        promocode.getReward()
-                                                );
-                                            } catch (PromotionalCodeIsSpentException exception) {
-                                                new Communicator(dispatch.source().sender()).send(new LAPIMessage(AncapPay.class, "error.promocode.spent"));
-                                            } catch (PromotionalCodeIsAlreadyUsedException exception) {
-                                                new Communicator(dispatch.source().sender()).send(new LAPIMessage(AncapPay.class, "error.promocode.already-used"));
-                                            } catch (IllegalPromotionalCodeTypeException exception) {
-                                                new Communicator(dispatch.source().sender()).send(new LAPIMessage(AncapPay.class, "error.promocode.illegal-type"));
-                                            } catch (PromotionalCodeIsExpiredException e) {
-                                                new Communicator(dispatch.source().sender()).send(new LAPIMessage(AncapPay.class, "error.promocode.expired"));
-                                            }
-                                        }
-                                )
-                        )
+        super(new Delegate(
+            new Raw(authors),
+            new SubCommand(
+                new StringDelegatePattern("create", "new"),
+                new Arguments(
+                    new Accept(
+                        new Argument("name", new Self()),
+                        new Argument("type", new PromocodeTypeTransformer()),
+                        new Argument("value", new DoubleExtractor()),
+                        new Argument("usages", new NumberExtractor()),
+                        new Argument("expiration", new NumberExtractor())
+                    ),
+                    dispatch -> {
+                        if (!dispatch.source().sender().isOp()) return;
+                        String name = dispatch.arguments().get("name", String.class);
+                        PromocodeType type = dispatch.arguments().get("type", PromocodeType.class);
+                        double value = dispatch.arguments().get("value", Double.class);
+                        long usages = dispatch.arguments().get("usages", Long.class);
+                        long expiration = dispatch.arguments().get("expiration", Long.class);
+                        
+                        PromocodeAPI.create(name, type, value, usages, expiration);
+                        new PaySpeaker(dispatch.source().sender()).sendPromocodeCreated(name, type, value, usages, expiration);
+                    }
                 )
-        );
+            ),
+            new SubCommand(
+                new StringDelegatePattern("remove", "delete"),
+                new Arguments(
+                    new Accept(
+                        new Argument("promocode", new PromocodeExtractor())
+                    ),
+                    dispatch -> {
+                        if (!dispatch.source().sender().isOp()) return;
+                        PromocodeAPI promocode = dispatch.arguments().get("promocode", PromocodeAPI.class);
+                        
+                        promocode.disable();
+                    }
+                )
+            ),
+            new SubCommand(
+                new StringDelegatePattern("use"),
+                new Arguments(
+                    new Accept(
+                        new Argument("promocode", new PromocodeExtractor())
+                    ),
+                    dispatch -> {
+                        PromocodeAPI promocode = dispatch.arguments().get("promocode", PromocodeAPI.class);
+                        try {
+                            promocode.use(dispatch.source().sender().getName());
+                            new PaySpeaker(dispatch.source().sender()).sendPromocodeSuccessfullyUsed(
+                                promocode.getName(),
+                                promocode.getReward()
+                            );
+                        } catch (PromotionalCodeIsSpentException exception) {
+                            new Communicator(dispatch.source().sender()).send(new LAPIMessage(AncapPay.class, "error.promocode.spent"));
+                        } catch (PromotionalCodeIsAlreadyUsedException exception) {
+                            new Communicator(dispatch.source().sender()).send(new LAPIMessage(AncapPay.class, "error.promocode.already-used"));
+                        } catch (IllegalPromotionalCodeTypeException exception) {
+                            new Communicator(dispatch.source().sender()).send(new LAPIMessage(AncapPay.class, "error.promocode.illegal-type"));
+                        } catch (PromotionalCodeIsExpiredException e) {
+                            new Communicator(dispatch.source().sender()).send(new LAPIMessage(AncapPay.class, "error.promocode.expired"));
+                        }
+                    }
+                )
+            )
+        ));
     }
-    
+
 }
 

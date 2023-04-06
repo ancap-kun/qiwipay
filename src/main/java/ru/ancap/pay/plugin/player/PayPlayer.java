@@ -8,9 +8,11 @@ import ru.ancap.pay.plugin.transaction.TransactionAPI;
 
 public class PayPlayer {
     
+    private final String name;
     private final PathDatabase database;
     
-    private PayPlayer(PathDatabase database) {
+    private PayPlayer(String name, PathDatabase database) {
+        this.name = name;
         this.database = database;
         if (!this.created()) this.create();
     }
@@ -24,7 +26,7 @@ public class PayPlayer {
     }
 
     public static PayPlayer get(String name) {
-        return new PayPlayer(AncapPay.DATABASE.inner("players."+name));
+        return new PayPlayer(name, AncapPay.DATABASE.inner("players."+name));
     }
     
     public void saveDonate(TransactionAPI transaction) {
@@ -40,6 +42,8 @@ public class PayPlayer {
         return this.database.contains("promocodes-used", promocode.getName());
     }
     
+    public String name() { return this.name; }
+    
     public double balance() {
         return this.database.readNumber("balance");
     }
@@ -47,5 +51,6 @@ public class PayPlayer {
     public void balance(double newBalance) {
         this.database.write("balance", newBalance);
     }
+    
 }
 

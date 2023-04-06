@@ -4,6 +4,8 @@
 package ru.ancap.pay.plugin.promocode;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.ancap.framework.database.nosql.PathDatabase;
@@ -15,6 +17,7 @@ import ru.ancap.pay.plugin.promocode.exception.PromotionalCodeIsExpiredException
 import ru.ancap.pay.plugin.promocode.exception.PromotionalCodeIsSpentException;
 
 @AllArgsConstructor
+@ToString @EqualsAndHashCode
 public class PromocodeAPI {
     
     private final String name;

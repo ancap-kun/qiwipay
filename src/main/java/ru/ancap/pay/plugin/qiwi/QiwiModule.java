@@ -54,11 +54,7 @@ public class QiwiModule {
                 LAPI.localized(LAPIDomain.of(AncapPay.class, "bill.comment"), name)
                         .replace("%PLAYER%", name),
                 ZonedDateTime.now().plusMinutes(QiwiConfig.loaded().getLong("acquiring.qiwi.bill-expiration-time")),
-                new Customer(
-                        "globalist@copro.org",
-                        UUID.randomUUID().toString(),
-                        "14884206969"
-                ),
+                new Customer("globalist@copro.org", UUID.randomUUID().toString(), "14884206969"),
                 QiwiConfig.loaded().getString("acquiring.qiwi.site")
         );
         this.bills.put(name, this.client.createBill(billInfo));
@@ -69,23 +65,27 @@ public class QiwiModule {
         new Thread(() -> {
             int skippedChecks = 0;
             while (true) {
-                BillResponse response = this.client.getBillInfo(billId);
-                boolean breakFlag = false;
-                switch (response.getStatus().getValue()) {
-                    case PAID:
-                        breakFlag = true;
-                        onPaid.run();
-                        break;
-                    case REJECTED: 
-                    case EXPIRED:
-                        breakFlag = true;
-                        break;
-                    case WAITING:
-                        skippedChecks++;
-                        LockSupport.parkUntil(skippedChecks < 120 ? System.currentTimeMillis()+5000 : System.currentTimeMillis()+30000);
-                        break;
+                try {
+                    BillResponse response = this.client.getBillInfo(billId);
+                    boolean breakFlag = false;
+                    switch (response.getStatus().getValue()) {
+                        case PAID:
+                            breakFlag = true;
+                            onPaid.run();
+                            break;
+                        case REJECTED:
+                        case EXPIRED:
+                            breakFlag = true;
+                            break;
+                        case WAITING:
+                            skippedChecks++;
+                            LockSupport.parkUntil(skippedChecks < 120 ? System.currentTimeMillis()+5000 : System.currentTimeMillis()+30000);
+                            break;
+                    }
+                    if (breakFlag) break;
+                } catch (Throwable throwable) {
+                    throwable.printStackTrace(); // потому что не надо прекращать проверки из-за плавающего бага okhttp
                 }
-                if (breakFlag) break;
             }
         }).start();
     }

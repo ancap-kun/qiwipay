@@ -20,8 +20,8 @@ public class WalletRepresenter implements CommandOperator {
         PayPlayer player = PayPlayer.get(dispatch.source().sender().getName());
         Communicator communicator = new Communicator(dispatch.source().sender());
         communicator.send(new LAPIMessage(
-                AncapPay.class, "wallet",
-                new Placeholder("amount", new Message(this.doubleFormat.format(player.balance())))
+            AncapPay.class, "wallet",
+            new Placeholder("amount", new Message(this.doubleFormat.format(player.balance())))
         ));
     }
     
